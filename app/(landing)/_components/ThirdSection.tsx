@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "sonner";
+import { submitForm } from "../_actions/form.action";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -31,14 +33,21 @@ export default function ThirdSection() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      email: "",
+      message: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+
+    toast.loading("Sending...", { id: "form-submit" });
+
+    await submitForm(values);
+
+    toast.success("Sent!", { id: "form-submit" });
   }
 
   return (
