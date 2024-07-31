@@ -5,9 +5,9 @@ import Image from "next/image";
 export default function SecondSection() {
   return (
     <div className="bg-white pt-20">
-      <div className="h-60 bg-white w-full">
+      <div className="h-fit lg:h-60 bg-white w-full">
         <div className="w-full h-full bg-[#FFECCF] max-w-7xl mx-auto rounded-3xl -top-1/4 px-16 py-8 relative flex items-end">
-          <div className="relative flex flex-row gap-6 w-full">
+          <div className="relative flex flex-col lg:flex-row gap-6 w-full">
             {/* Pantry Item Card */}
             <PantryItemCard />
 
@@ -38,12 +38,12 @@ export default function SecondSection() {
 
             {/*  */}
             <div className="flex flex-col gap-2">
-              <div className="flex flex-col h-full items-center justify-center bg-white rounded-2xl gap-4">
+              <div className="flex flex-col h-full items-center justify-center bg-white rounded-2xl gap-4 py-8">
                 <h4 className="tracking-widest uppercase font-bold">SINCE</h4>
                 <h1 className="tracking-widest uppercase font-bold">2024</h1>
               </div>
 
-              <div className="flex flex-row gap-6 justify-between">
+              <div className="flex flex-row justify-between gap-2">
                 <span className="bg-white p-6 rounded-xl">
                   <Icon
                     icon={"game-icons:basket"}
@@ -84,7 +84,7 @@ function PantryItemCard() {
           alt="hero"
           height={200}
           width={200}
-          className="object-cover mx-auto"
+          className="w-full h-full object-cover mx-auto"
         />
       </div>
       <h3 className="my-2 font-bold">Coffee Capsules</h3>

@@ -7,8 +7,8 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <div className="min-h-screen flex flex-col justify-center gap-8">
-      <div className="w-full flex justify-between items-center gap-8 mx-auto max-w-7xl">
+    <div className="min-h-screen h-fit flex flex-col justify-center gap-8 px-8 pt-32 md:py-8">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-8 mx-auto max-w-7xl">
         {/* Left Side */}
         <div>
           <h1>
@@ -49,10 +49,10 @@ export default function HeroSection() {
             height={500}
           />
 
-          <TextPop className="absolute left-0 -translate-x-1/2 top-1/4">
+          <TextPop className="absolute left-0 md:-translate-x-1/2 top-1/4">
             Dry Fruits
           </TextPop>
-          <TextPop className="absolute right-0 translate-x-1/2 top-1/2">
+          <TextPop className="absolute right-0 xl:translate-x-1/2 top-1/2">
             6-12 Months Life
           </TextPop>
           <TextPop className="absolute left-1/2 -translate-x-1/2 bottom-4">

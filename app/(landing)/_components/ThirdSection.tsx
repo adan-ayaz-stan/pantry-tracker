@@ -42,7 +42,7 @@ export default function ThirdSection() {
   }
 
   return (
-    <div className="bg-white min-h-screen pt-20 pb-12 flex flex-col justify-between items-center">
+    <div className="bg-white min-h-screen pt-20 pb-12 flex flex-col justify-between items-center px-8">
       {/* Contact Me Form */}
       <div className="space-y-4">
         <h1 className="text-center">Write to me</h1>
@@ -110,9 +110,9 @@ export default function ThirdSection() {
 
       {/* Footer Section */}
 
-      <div className="w-full max-w-7xl grid grid-cols-12 gap-2 mt-20">
+      <div className="w-full max-w-7xl grid grid-cols-3 md:grid-cols-12 gap-2 mt-20">
         {/* Alias Company Logo Card */}
-        <div className="col-span-3 flex border-2 rounded-2xl border-[#FFDFB0]">
+        <div className="col-span-3 md:col-span-3 flex border-2 rounded-2xl border-[#FFDFB0]">
           <Image
             src={"/c-logo.svg"}
             alt={"c-logo"}
@@ -121,7 +121,7 @@ export default function ThirdSection() {
             className="object-cover m-auto rounded-2xl invert"
           />
         </div>
-        <div className="col-span-3 flex bg-[#FFDFB0] rounded-2xl">
+        <div className="col-span-3 md:col-span-3 p-8 flex bg-[#FFDFB0] rounded-2xl">
           <Image
             src={"/sign.svg"}
             alt={"footer"}
@@ -130,7 +130,7 @@ export default function ThirdSection() {
             className="object-cover m-auto rounded-2xl"
           />
         </div>
-        <div className="col-span-6 flex p-4 rounded-2xl bg-[#FFDFB0]">
+        <div className="col-span-3 md:col-span-6 flex p-4 rounded-2xl bg-[#FFDFB0]">
           <Image
             src={"/images/footer.jpg"}
             alt={"footer"}
@@ -139,7 +139,7 @@ export default function ThirdSection() {
             className="object-cover mx-auto rounded-2xl"
           />
         </div>
-        <div className="col-span-6 p-4 bg-[#FFDFB0] rounded-2xl flex items-center text-xl font-bold">
+        <div className="col-span-3 md:col-span-6 p-4 bg-[#FFDFB0] rounded-2xl flex items-center text-xl font-bold">
           Made at the hands of{" "}
           <Link
             href={"https://github.com/adan-ayaz-stan"}
@@ -150,34 +150,34 @@ export default function ThirdSection() {
         </div>
         <Link
           href={"https://github.com/adan-ayaz-stan"}
-          className="col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
+          className="col-span-1 md:col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
         >
           <Button variant={"ghost"} className="font-bold m-auto">
             <Icon
               icon={"entypo-social:github"}
-              className="h-8 w-8 mr-2 text-black"
+              className="h-8 w-8 md:mr-2 text-black"
             />{" "}
-            Github
+            <span className="hidden md:block">Github</span>
           </Button>
         </Link>
         <Link
           href={"https://linkedin.com/in/adan-ayaz"}
-          className="col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
+          className="col-span-1 md:col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
         >
           <Button variant={"ghost"} className="font-bold m-auto">
-            <Icon icon={"bi:linkedin"} className="h-6 w-6 mr-2 text-black" />{" "}
-            LinkedIn
+            <Icon icon={"bi:linkedin"} className="h-6 w-6 md:mr-2 text-black" />{" "}
+            <span className="hidden md:block">LinkedIn</span>
           </Button>
         </Link>
         <Link
           href={"https://luceforge.vercel.app"}
-          className="col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
+          className="col-span-1 md:col-span-2 p-4 bg-white shadow-xl flex rounded-2xl border"
         >
           <Button variant={"ghost"} className="font-bold m-auto">
-            Umberalla
+            <span className="hidden md:block">Umberella</span>
             <Icon
               icon={"system-uicons:external"}
-              className="h-8 w-8 ml-2 text-black"
+              className="h-8 w-8 md:ml-2 text-black"
             />{" "}
           </Button>
         </Link>

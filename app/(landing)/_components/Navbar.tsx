@@ -11,11 +11,11 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="p-8 md:px-16 w-full fixed top-0 left-0 flex items-center justify-between z-50 bg-white">
+    <div className="p-8 py-4 md:px-16 w-full fixed top-0 left-0 flex items-center justify-between z-50 bg-white">
       {/* Logo */}
       <Link href={"/"} className="flex items-center gap-2">
         <Image src={"/logo.svg"} alt="logo" width={50} height={50} />
-        <h2>Eatery Pantry</h2>
+        <h2 className="hidden md:block">Eatery Pantry</h2>
       </Link>
 
       {/* Links */}
