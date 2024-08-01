@@ -6,7 +6,7 @@ import ThirdSection from "./_components/ThirdSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-yBg">
+    <main className="min-h-screen bg-cream">
       <Navbar />
       <HeroSection />
       <SecondSection />

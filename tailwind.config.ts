@@ -21,7 +21,7 @@ const config = {
       colors: {
         orange: "#FF9900",
         davy: "#282828",
-        yBg: "#FFF6E8",
+        cream: "#FFF6E8",
         brown: "#653D29",
       },
       keyframes: {

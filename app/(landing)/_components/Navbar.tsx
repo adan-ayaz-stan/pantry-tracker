@@ -1,15 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
   return (
     <div className="p-8 py-4 md:px-16 w-full fixed top-0 left-0 flex items-center justify-between z-50 bg-white">
       {/* Logo */}
