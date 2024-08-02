@@ -11,7 +11,7 @@ export default function Navbar() {
       {/* Logo */}
       <Link href={"/"} className="flex items-center gap-2">
         <Image src={"/logo.svg"} alt="logo" width={50} height={50} />
-        <h2 className="hidden md:block">Eatery Pantry</h2>
+        <h2 className="hidden md:block">Easy Pantry</h2>
       </Link>
 
       {/* Links */}

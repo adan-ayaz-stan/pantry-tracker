@@ -6,7 +6,16 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "api.iconify.design",
             },
+            {
+                protocol: "https",
+                hostname: "firebasestorage.googleapis.com",
+            },
         ],
+    },
+    experimental: {
+        serverActions: {
+            bodySizeLimit: "2mb",
+        }
     }
 };
 

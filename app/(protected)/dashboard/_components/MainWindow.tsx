@@ -26,35 +26,12 @@ export default function MainWindow() {
           <Icon icon={"bxs:food-menu"} className="h-8 w-8 text-inherit mr-2" />{" "}
           Pantry Items
         </TabsTrigger>
-        <TabsTrigger
-          value="running-low"
-          className="w-full justify-start text-xl font-bold rounded-xl py-4 bg-white data-[state=active]:bg-orange data-[state=active]:text-white"
-        >
-          <Icon
-            icon={"fluent:book-exclamation-mark-24-filled"}
-            className="h-8 w-8 text-inherit mr-2"
-          />{" "}
-          Running Low
-        </TabsTrigger>
-        <TabsTrigger
-          value="expiring-soon"
-          className="w-full justify-start text-xl font-bold rounded-xl py-4 bg-white data-[state=active]:bg-orange data-[state=active]:text-white"
-        >
-          <Icon icon={"pajamas:expire"} className="h-8 w-8 text-inherit mr-2" />{" "}
-          Expiring Soon
-        </TabsTrigger>
       </TabsList>
       <TabsContent value="recipe-center" className="mt-0">
         <RecipeCenter />
       </TabsContent>
       <TabsContent value="pantry-items" className="mt-0">
         <PantryItems />
-      </TabsContent>
-      <TabsContent value="running-low" className="mt-0">
-        <RunningLow />
-      </TabsContent>
-      <TabsContent value="expiring-soon" className="mt-0">
-        <ExpiringSoon />
       </TabsContent>
     </Tabs>
   );
