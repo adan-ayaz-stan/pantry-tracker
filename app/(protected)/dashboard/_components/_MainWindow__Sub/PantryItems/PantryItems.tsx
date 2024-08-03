@@ -15,6 +15,7 @@ import { useRef } from "react";
 import { getPantryItems, TgetPantryItem } from "./items.action";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import PantryItemCard from "./_components/PantryItemCard";
+import GenerateAIRecipe from "./_components/GenerateAIRecipe";
 
 export default function PantryItems() {
   const queryClient = useQueryClient();
@@ -52,6 +53,17 @@ export default function PantryItems() {
                 }}
               />
             </ScrollArea>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog>
+          <DialogTrigger>
+            <Button type="button" variant={"orange"}>
+              Generate AI Recipe
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="p-0 bg-white rounded-2xl">
+            <GenerateAIRecipe />
           </DialogContent>
         </Dialog>
       </div>

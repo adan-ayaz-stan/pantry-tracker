@@ -2,8 +2,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import PantryItems from "./_MainWindow__Sub/PantryItems/PantryItems";
 import RecipeCenter from "./_MainWindow__Sub/RecipeCenter/RecipeCenter";
-import RunningLow from "./_MainWindow__Sub/RunningLow/RunningLow";
-import ExpiringSoon from "./_MainWindow__Sub/ExpiringSoon/ExpiringSoon";
 
 export default function MainWindow() {
   return (
