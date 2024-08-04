@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getRecipes } from "./recipes.action";
+import { getRecipes, getSavedRecipes } from "./recipes.action";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,11 @@ export default function RecipeCenter() {
   const { isLoading, data } = useQuery({
     queryKey: ["recipe", params.get("q")],
     queryFn: () => getRecipes(params.get("q") || ""),
+  });
+
+  const { isLoading: isLoadingSaved, data: dataSavedRecipes } = useQuery({
+    queryKey: ["recipe", "saved"],
+    queryFn: () => getSavedRecipes(),
   });
 
   function onSearch() {
@@ -50,7 +55,7 @@ export default function RecipeCenter() {
           <div className="p-4 flex w-full">
             <Icon
               icon={"eos-icons:loading"}
-              className="h-16 w-16 mx-auto text-brown"
+              className="h-16 w-16 mx-auto text-orange animate-spin"
             />
           </div>
         )}
@@ -82,6 +87,61 @@ export default function RecipeCenter() {
             </Link>
           </div>
         ))}
+      </div>
+
+      {/* Saved Recipes */}
+      <div className="my-4">
+        <h2>Your Saved Recipes</h2>
+
+        <div className="flex flex-col gap-4">
+          {isLoadingSaved && (
+            <div className="p-4 flex w-full">
+              <Icon
+                icon={"eos-icons:loading"}
+                className="h-16 w-16 mx-auto text-orange animate-spin"
+              />
+            </div>
+          )}
+
+          {dataSavedRecipes?.length == 0 && (
+            <div className="p-4 flex w-full">
+              <p className="m-auto text-center">No saved recipes.</p>
+            </div>
+          )}
+
+          {dataSavedRecipes?.map((item) => (
+            <div
+              key={item.title + item.time_to_cook}
+              className="relative w-full max-w-5xl bg-white p-6 rounded-2xl h-fit"
+            >
+              <h2>{item.title}</h2>
+              <h3 className="font-bold mt-4">{item.time_to_cook}</h3>
+              <p className="w-fit text-green-900 px-2 rounded-md bg-green-300 my-2 font-semibold">
+                Ingredients: {item.ingredients.length}
+              </p>
+
+              <div className="my-4 flex flex-row gap-3 flex-wrap">
+                <strong>Ingredients:</strong>{" "}
+                <ul>
+                  {item.ingredients?.map((ingredient) => (
+                    <li key={ingredient?.name}>
+                      {ingredient?.name} {ingredient?.amount}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="my-4">
+                <strong>Instructions:</strong>
+                <ol>
+                  {item.instructions?.map((instruction) => (
+                    <li key={instruction}>{instruction}</li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

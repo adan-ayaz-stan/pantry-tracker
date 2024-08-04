@@ -3,7 +3,7 @@
 import { db } from "@/lib/db/firebase";
 import { Recipe } from "@/types/edamam";
 import { auth } from "@clerk/nextjs/server";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
 import ky from "ky";
 import { z } from "zod";
 
@@ -62,6 +62,30 @@ export async function addRecipe(recipe: TrecipeSchema) {
     });
 
     return true;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getSavedRecipes(): Promise<TrecipeSchema[]> {
+  const { userId } = auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  try {
+    const queryS = query(collection(db, "users", userId, "recipes"));
+    const recipesData = await getDocs(queryS);
+
+    const recipes = recipesData.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+
+    return recipes as unknown as TrecipeSchema[];
   } catch (err) {
     throw err;
   }
