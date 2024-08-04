@@ -1,4 +1,4 @@
-import { openai } from "@ai-sdk/openai";
+import { mistral } from "@ai-sdk/mistral";
 import { auth } from "@clerk/nextjs/server";
 import { streamObject } from "ai";
 import { z } from "zod";
@@ -11,7 +11,7 @@ const recipeSchema = z.object({
       amount: z.string(),
     })
   ),
-  instructions: z.string(),
+  instructions: z.array(z.string()),
   time_to_cook: z.string(),
 });
 
@@ -27,12 +27,12 @@ export async function POST(req: Request) {
 
   const context = await req.json();
 
+  console.log(context);
+
   const result = await streamObject({
-    model: openai("gpt-3.5-turbo"),
+    model: mistral("mistral-small-latest"),
     schema: recipeSchema,
-    prompt:
-      `Generate a recipe for the given context. Try to create a recipe within the ingredients available in the context. Otherwise, if it's not possible, then try to minimize the additional ingredients needed to cook  a possible recipe. Context:` +
-      context,
+    prompt: `Create a recipe based on the following ingredients and instructions: ${context}.\n Try to keep it within the available items but loosely. If not available, then try to list a recipe that doesn't use too many ingredients outside the available items. Do not make any silly recipes.`,
   });
 
   return result.toTextStreamResponse();
