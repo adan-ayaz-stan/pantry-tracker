@@ -35,7 +35,8 @@ import Webcam from "react-webcam";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { addPantryItem } from "../items.action";
+import { addPantryItem, getImageLabel } from "../items.action";
+import { useMutation } from "@tanstack/react-query";
 
 const formSchema = z.object({
   image: z.string().min(5, { message: "Image is required" }),
@@ -110,6 +111,27 @@ export default function AddItemToPantry({
     date.setDate(date.getDate() + days_from_now);
     form.setValue("expiration_date", date);
   }
+
+  // Label Image
+  const {
+    mutate: labelImage,
+    isPending: isLabelPending,
+    isError: isLabelError,
+  } = useMutation({
+    mutationKey: ["label-pantry-image"],
+    mutationFn: async (base64: string) => await getImageLabel(base64),
+    onMutate: () => {
+      toast.loading("Labeling image...", { id: "label-image" });
+    },
+    onSuccess: (data) => {
+      form.setValue("title", data);
+
+      toast.success("Image labeled successfully!", { id: "label-image" });
+    },
+    onError: (error) => {
+      toast.error("Failed to label image", { id: "label-image" });
+    },
+  });
 
   return (
     <Form {...form}>
@@ -226,19 +248,33 @@ export default function AddItemToPantry({
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name of Item</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Canned Pickles"
-                    className="focus-visible:ring-offset-white"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <div>
+                <FormItem>
+                  <FormLabel>Name of Item</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Canned Pickles"
+                      className="focus-visible:ring-offset-white"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+                {form.watch("image") && (
+                  <Button
+                    variant={"secondary"}
+                    type="button"
+                    className="w-full mt-2"
+                    onClick={() => labelImage(form.getValues("image"))}
+                    disabled={isLabelPending || isLabelError}
+                  >
+                    Label with AI
+                  </Button>
+                )}
+              </div>
             )}
           />
+
           <FormField
             control={form.control}
             name="expiration_date"

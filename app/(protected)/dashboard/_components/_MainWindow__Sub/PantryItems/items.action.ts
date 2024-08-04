@@ -14,6 +14,7 @@ import {
   Timestamp,
   deleteDoc,
 } from "firebase/firestore";
+import ky from "ky";
 
 type TaddPantryItem = {
   image: string;
@@ -130,6 +131,55 @@ export async function deletePantryItem(id: string) {
 
   try {
     await deleteDoc(doc(db, "users", userId, "pantry", id));
+  } catch (err) {
+    throw err;
+  }
+}
+
+// Label Image with AI
+export type Results = Result[];
+
+export interface Result {
+  label: string;
+  confidence: number;
+}
+
+export async function getImageLabel(base64_image: string) {
+  const { userId } = auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  try {
+    const userItemStorageRef = ref(
+      storage,
+      "users/" + userId + "/" + "temp" + ".png"
+    );
+
+    // Upload image
+    return await uploadString(userItemStorageRef, base64_image, "base64")
+      .then(async (value) => {
+        // Get image URL
+        const url = await getDownloadURL(value.ref);
+        // Get label
+        const response = await ky.get(
+          "https://api.apilayer.com/image_labeling/url?url=" + url,
+          {
+            headers: {
+              apiKey: process.env.APILAYER_API_KEY,
+            },
+          }
+        );
+
+        const body: Results = await response.json();
+        console.log(body);
+
+        return body[0].label;
+      })
+      .catch((err) => {
+        throw err;
+      });
   } catch (err) {
     throw err;
   }
